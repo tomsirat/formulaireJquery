@@ -56,15 +56,30 @@ $(document).ready(function () {
 
     }
 
-    $(document).ready(function () {
-        $("#exampleInputPassword1").keyup(function () {
-            passwordStrength($(this).val());
-        });
+    $("#exampleInputPassword1").keyup(function () {
+        passwordStrength($(this).val());
     });
 
-    $(".addbtn").click(function () {;
-        $(".test").clone(true).appendTo(".row");
-    
+    $(".addbtn").click(function () {
+
+        var divRow = $('<div class="row">')
+        $('.telephone').append(divRow)
+        var elmt = [
+            $("<label for='telephone'>Téléphone</label>"),
+            $("<input type='select' class='form-control'>"),
+            $("<select class='form-control'>" +
+                '<option selected>Choose</option>' +
+                '<option value="1">Pro</option>' +
+                '<option value="2">Perso</option>' +
+                '<option value="3">Minitél</option>' +
+            "</select>")
+
+        ]
+        for (i = 0; i < elmt.length; i++) {
+            var divCol4 = $('<div class="col-4">')
+            divRow.append(divCol4)
+            divCol4.append(elmt[i])
+        }
 
     })
 
@@ -72,7 +87,7 @@ $(document).ready(function () {
 
 
 
-{/* <div class="row">
+/* <div class="row">
     <div class="col-3">
         <label for="telephone">Téléphone</label>
     </div>
@@ -88,4 +103,4 @@ $(document).ready(function () {
             </select>
         </div>
         <div class="col-3"><button class="btn btn-primary addbtn">Add</button></div>
-    </div> */}
+    </div> */
