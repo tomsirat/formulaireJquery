@@ -5,7 +5,9 @@ $(document).ready(function () {
     // })
 
     $('.alert').hide()
+
     $("#formulaire").on("submit", function () {
+
         if ($("#exampleInputPassword1").val() != $("#exampleInputPassword2").val()) {
             $('.ok3').show()
         }
@@ -13,6 +15,7 @@ $(document).ready(function () {
         if ($("#exampleInputEmail1").val().length < 5) {
 
         }
+
         if ($("#exampleInputPassword1").val().length < 5) {
             $('.ok2').show()
         }
@@ -24,42 +27,65 @@ $(document).ready(function () {
         return false
 
     });
+
     $('#reset').click(function () {
         $('input').html("")
 
     })
-   
 
     function passwordStrength(password) {
-        var msg = ['not acceptable', 'very weak', 'weak', 'standard', 'looks good', 'yeahhh, strong mate.'];
-        var desc = ['0%', '20%', '40%', '60%', '80%', '100%'];
 
-        var descClass = ['', 'bg-danger', 'bg-danger', 'bg-warning', 'bg-success', 'bg-success'];
-        var score = 0;
-        // if password bigger than 6 give 1 point
-        if (password.length > 6) score++;
-        // if password has both lower and uppercase characters give 1 point    
-        if ((password.match(/[a-z]/)) && (password.match(/[A-Z]/))) score++;
-        // if password has at least one number give 1 point
-        if (password.match(/d+/)) score++;
-        // if password has at least one special caracther give 1 point
-        if (password.match(["!", "@", "#", "$", "%", "^", "&", "*", "?", "_", "~", "-", "(", ")"])) score++;
-        // if password bigger than 12 give another 1 point
-        if (password.length > 10) score++;
 
-        // Display indicator graphic
-        $(".jak_pstrength").removeClass(descClass[score - 1]).addClass(descClass[score]).css("width", desc[score]);
-        // Display indicator text
-        $("#jak_pstrength_text").html(msg[score]);
-        // Output the score to the console log, can be removed when used live.
-        console.log(desc[score]);
+
+        if (password.length < 5) {
+            $("#exampleInputPassword1").css("background-color", "red");
+            $("#passwordStrenght").html("Une maj ca mange pas de pain");
+        }
+
+
+        if (password.length > 5 && password.match(/[a-z]/) && (password.match(/[A-Z]/))) {
+            $("#exampleInputPassword1").css("background-color", "orange");
+            $("#passwordStrenght").html("Un chiffre est conseillé");
+
+        }
+
+        if (password.length > 10 && password.match(/[0-9]/)) {
+            $("#exampleInputPassword1").css("background-color", "green");
+            $("#passwordStrenght").html("GG dude");
+        }
+
     }
 
-    $("#exampleInputPassword1").keyup(function () {
-        passwordStrength($(this).val());
-        console.log(passwordStrength($(this).html()));
-
+    $(document).ready(function () {
+        $("#exampleInputPassword1").keyup(function () {
+            passwordStrength($(this).val());
+        });
     });
 
+    $(".addbtn").click(function () {;
+        $(".test").clone(true).appendTo(".row");
+    
+
+    })
 
 });
+
+
+
+{/* <div class="row">
+    <div class="col-3">
+        <label for="telephone">Téléphone</label>
+    </div>
+    <div class="col-3">
+        <input type="select" class="form-control">
+                            </div>
+        <div class="col-3">
+            <select class="form-control">
+                <option selected>Choose</option>
+                <option value="1">Pro</option>
+                <option value="2">Perso</option>
+                <option value="3">Minitél</option>
+            </select>
+        </div>
+        <div class="col-3"><button class="btn btn-primary addbtn">Add</button></div>
+    </div> */}
