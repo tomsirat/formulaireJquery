@@ -72,7 +72,7 @@ $(document).ready(function () {
                 '<option value="1">Pro</option>' +
                 '<option value="2">Perso</option>' +
                 '<option value="3">Minitél</option>' +
-            "</select>")
+                "</select>")
 
         ]
         for (i = 0; i < elmt.length; i++) {
@@ -83,24 +83,49 @@ $(document).ready(function () {
 
     })
 
+
+    var substringMatcher = function (strs) {
+        return function findMatches(q, cb) {
+            var matches, substringRegex;
+
+            // an array that will be populated with substring matches
+            matches = [];
+
+            // regex used to determine if a string contains the substring `q`
+            substrRegex = new RegExp(q, 'i');
+
+            // iterate through the pool of strings and for any string that
+            // contains the substring `q`, add it to the `matches` array
+            $.each(strs, function (i, str) {
+                if (substrRegex.test(str)) {
+                    matches.push(str);
+                }
+            });
+
+            cb(matches);
+        };
+    };
+
+    var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+        'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+        'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+        'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+        'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+        'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+    ];
+
+    $('#the-basics .typeahead').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    },
+        {
+            name: 'states',
+            source: substringMatcher(states)
+        });
 });
 
 
-
-/* <div class="row">
-    <div class="col-3">
-        <label for="telephone">Téléphone</label>
-    </div>
-    <div class="col-3">
-        <input type="select" class="form-control">
-                            </div>
-        <div class="col-3">
-            <select class="form-control">
-                <option selected>Choose</option>
-                <option value="1">Pro</option>
-                <option value="2">Perso</option>
-                <option value="3">Minitél</option>
-            </select>
-        </div>
-        <div class="col-3"><button class="btn btn-primary addbtn">Add</button></div>
-    </div> */
